@@ -1,88 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>نظام الحضور الجامعي</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap');
-
-:root {
-  --bg: #0a0e1a; --surface: #111827; --card: #1a2235; --border: #2a3548;
-  --accent: #1d6fa4; --gold: #f0a500; --green: #10b981; --red: #ef4444;
-  --text: #f1f5f9; --text-muted: #64748b; --radius: 16px;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); max-width: 430px; margin: 0 auto; direction: rtl; }
-
-.page { display: none; min-height: 100vh; flex-direction: column; }
-.page.active { display: flex; }
-
-#page-landing { background: var(--bg); align-items: center; justify-content: center; padding: 40px 24px; position: relative; overflow: hidden; }
-.bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
-.orb1 { width: 280px; height: 280px; background: rgba(29,111,164,0.2); top: -80px; left: -60px; }
-.orb2 { width: 200px; height: 200px; background: rgba(240,165,0,0.12); bottom: 100px; right: -40px; }
-
-.content-wrap { position: relative; z-index: 1; width: 100%; text-align: center; }
-.landing-title { font-family: 'Cairo', sans-serif; font-size: 22px; font-weight: 900; margin-bottom: 10px; color: white; }
-.landing-title span { color: var(--gold); }
-.landing-date-badge { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 8px 20px; font-size: 14px; color: var(--gold); display: inline-block; margin-bottom: 40px; }
-
-.land-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; gap: 15px; text-decoration: none; justify-content: center;}
-.land-btn-student { background: linear-gradient(135deg, var(--gold), #d48f00); color: #0a0e1a; box-shadow: 0 6px 20px rgba(240,165,0,0.2); }
-.land-btn-admin { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-
-.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-input { width: 100%; padding: 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; color: white; margin-bottom: 15px; font-family: 'Tajawal'; font-size: 16px; outline: none; text-align: right; }
-input:focus { border-color: var(--accent); }
-label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 5px; text-align: right; }
-
-.group-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
-.group-item { background: var(--surface); border: 1.5px solid var(--border); padding: 12px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; color: var(--text-muted); font-weight: bold; }
-.group-item input { display: none; }
-.group-item:has(input:checked) { background: rgba(29, 111, 164, 0.2); border-color: var(--gold); color: var(--gold); box-shadow: 0 0 10px rgba(240, 165, 0, 0.2); }
-
-.submit-btn { width: 100%; padding: 18px; background: var(--gold); color: #0a0e1a; border: none; border-radius: 15px; font-weight: 900; font-size: 18px; cursor: pointer; margin-top: 10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>نظام الحضور الجامعي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap');
+        :root {
+            --bg: #0a0e1a; --surface: #111827; --card: #1a2235; --border: #2a3548;
+            --accent: #1d6fa4; --gold: #f0a500; --green: #10b981; --text: #f1f5f9; --text-muted: #64748b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); max-width: 430px; margin: 0 auto; direction: rtl; }
+        .page { display: none; min-height: 100vh; flex-direction: column; }
+        .page.active { display: flex; }
+        #page-landing { align-items: center; justify-content: center; padding: 40px 24px; text-align: center; }
+        .landing-date-badge { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 8px 20px; font-size: 14px; color: var(--gold); margin-bottom: 40px; display: inline-block; }
+        .land-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; font-weight: 700; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; gap: 15px; justify-content: center; }
+        .land-btn-student { background: linear-gradient(135deg, var(--gold), #d48f00); color: #0a0e1a; }
+        .land-btn-admin { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin: 15px; }
+        input { width: 100%; padding: 14px; background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; color: white; margin-bottom: 15px; text-align: right; outline: none; }
+        .group-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .group-item { background: var(--surface); border: 1.5px solid var(--border); padding: 12px; border-radius: 12px; text-align: center; cursor: pointer; color: var(--text-muted); }
+        .group-item input { display: none; }
+        .group-item:has(input:checked) { border-color: var(--gold); color: var(--gold); background: rgba(240,165,0,0.1); }
+        .submit-btn { width: 100%; padding: 18px; background: var(--gold); color: #0a0e1a; border: none; border-radius: 15px; font-weight: 900; font-size: 18px; cursor: pointer; }
+    </style>
 </head>
 <body>
 
 <div class="page active" id="page-landing">
-    <div class="bg-orb orb1"></div>
-    <div class="bg-orb orb2"></div>
     <div class="content-wrap">
-       <h1> University of Science and Technology Mohammed Boudiaf Oran</h1>
-        <h2> Faculty of Physics</h2>
-        <h2> Department of Basics Physics</h2>
-        <div style="font-size: 50px; margin-bottom: 10px;">🎓</div>
-       <h1 class="landing-title">Computer Science Lab</h1>
-       <div class="landing-date-badge" id="landing-date">📅 loading...</div>
-       
-       <div style="padding: 0 20px;">
-           <button class="land-btn land-btn-student" onclick="goToStudentForm()">
-               <span>📱</span> <span>Student Attendance</span>
-           </button>
-           <button class="land-btn land-btn-admin" onclick="showPage('page-admin-login')">
-               <span>🔐</span> <span>Teacher’s Area</span>
-           </button>
-       </div>
+        <h2 style="font-size: 16px; opacity: 0.8;">USTO-MB Oran</h2>
+        <h1 style="margin: 10px 0;">Computer Science Lab</h1>
+        <div class="landing-date-badge" id="landing-date">📅 loading...</div>
+        <div style="padding: 0 20px;">
+            <button class="land-btn land-btn-student" onclick="goToStudentForm()">📱 Student Attendance</button>
+            <button class="land-btn land-btn-admin" onclick="showPage('page-admin-login')">🔐 Teacher’s Area</button>
+        </div>
     </div>
 </div>
 
 <div class="page" id="page-student">
-    <div style="text-align: center; padding: 30px 20px 10px;">
-        <h2>Attendance Registration</h2>
-    </div>
-    <div class="card">
-        <label>اللقب (Name)</label>
+    <div class="card" id="student-content">
+        <h2 style="text-align:center; margin-bottom:20px;">Attendance Registration</h2>
+        <label style="display:block; margin-bottom:5px; font-size:12px;">اللقب (Name)</label>
         <input type="text" id="s-nom" placeholder="Ex: BENMOHAMMED">
-        <label>الاسم (First_name)</label>
+        <label style="display:block; margin-bottom:5px; font-size:12px;">الاسم (First_name)</label>
         <input type="text" id="s-prenom" placeholder="Ex: Ahmed">
-    </div>
-    <div class="card">
-        <p style="text-align:center; margin-bottom:15px; font-size:14px;"> Choose your Groupe :</p>
+        
+        <p style="text-align:center; margin: 15px 0;">Choose your Groupe :</p>
         <div class="group-grid">
             <label class="group-item"><input type="radio" name="groupe" value="G53"> G53</label>
             <label class="group-item"><input type="radio" name="groupe" value="G57"> G57</label>
@@ -90,7 +58,7 @@ label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom
             <label class="group-item"><input type="radio" name="groupe" value="G75"> G75</label>
             <label class="group-item"><input type="radio" name="groupe" value="G79"> G79</label>
         </div>
-        <button class="submit-btn" id="btn-submit" onclick="submitPresence()">تأكيد الحضور ✅</button>
+        <button class="submit-btn" id="btn-submit" onclick="submitPresence()" style="margin-top:20px;">تأكيد الحضور ✅</button>
         <p onclick="showPage('page-landing')" style="text-align:center; margin-top:15px; font-size:12px; color:var(--text-muted); cursor:pointer;">← Back</p>
     </div>
 </div>
@@ -112,52 +80,39 @@ label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom
 </div>
 
 <script>
-const ADMIN_PASSWORD = 'prof2024';
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxs_8Fn8RjIyq5YcTlXK0bpz8xvNQReoZ1b5yu1CDJwQ4f6rSmjS_fbpY2bauiq-p8n9A/exec"; // <--- VERIFIE BIEN CETTE URL
+const SCRIPT_URL = "MET_TA_NOUVELLE_URL_ICI"; 
 
-// 1. EXECUTION AU CHARGEMENT
 window.onload = function() {
-    // Affichage de la date sur la page d'accueil
     const today = new Date();
-    const dateStr = today.toLocaleDateString('ar-DZ', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-    document.getElementById('landing-date').innerText = "📅 " + dateStr;
-
-    // Vérifier si le cours est OUVERT ou FERME
+    document.getElementById('landing-date').innerText = "📅 " + today.toLocaleDateString('ar-DZ', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
     checkStatus();
 };
 
 function checkStatus() {
     fetch(SCRIPT_URL)
-    .then(response => response.text())
+    .then(r => r.text())
     .then(status => {
-        const cleanStatus = status.trim();
-        if (cleanStatus !== "OPEN") {
-            // Si c'est fermé, on remplace le contenu par un message de verrouillage
-            document.getElementById('page-student').innerHTML = `
-                <div class="card" style="text-align:center; padding:50px; background: var(--card);">
-                    <div style="font-size:60px; margin-bottom:20px;">🔒</div>
-                    <h2 style="color:var(--gold); margin-bottom:15px;">التسجيل مغلق حاليا</h2>
-                    <p style="color:var(--text); line-height:1.6;">L'enregistrement est fermé. <br> Veuillez attendre l'autorisation du professeur en salle.</p>
-                    <button class="submit-btn" onclick="location.reload()" style="margin-top:20px; font-size:14px; padding:10px;">Actualiser ↻</button>
+        if (status.trim().toUpperCase() !== "OPEN") {
+            document.getElementById('student-content').innerHTML = `
+                <div style="text-align:center; padding:30px;">
+                    <div style="font-size:60px;">🔒</div>
+                    <h2 style="color:var(--gold); margin:15px 0;">التسجيل مغلق حاليا</h2>
+                    <p>L'enregistrement est fermé. Veuillez attendre l'autorisation.</p>
+                    <button class="submit-btn" onclick="location.reload()" style="margin-top:20px; font-size:14px;">Actualiser ↻</button>
                 </div>`;
         } else {
-            // Si c'est ouvert, on vérifie si l'étudiant a déjà cliqué aujourd'hui
             checkIfAlreadyDone();
         }
-    })
-    .catch(err => console.error("Erreur Statut:", err));
+    });
 }
 
 function checkIfAlreadyDone() {
-    const todayKey = new Date().toLocaleDateString('fr-FR');
-    const hasRegistered = localStorage.getItem('done_' + todayKey);
-
-    if (hasRegistered) {
-        document.getElementById('page-student').innerHTML = `
-            <div class="card" style="text-align:center; padding:50px; background: var(--card);">
-                <div style="font-size:60px; margin-bottom:20px;">🚫</div>
-                <h2 style="color:var(--gold); margin-bottom:15px;">تم التسجيل سابقا</h2>
-                <p style="color:var(--text);">Vous avez déjà enregistré votre présence depuis cet appareil aujourd'hui.</p>
+    if (localStorage.getItem('done_' + new Date().toLocaleDateString())) {
+        document.getElementById('student-content').innerHTML = `
+            <div style="text-align:center; padding:30px;">
+                <div style="font-size:60px;">🚫</div>
+                <h2 style="color:var(--gold); margin:15px 0;">تم التسجيل سابقا</h2>
+                <p>Vous avez déjà enregistré votre présence aujourd'hui.</p>
             </div>`;
     }
 }
@@ -165,59 +120,39 @@ function checkIfAlreadyDone() {
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
 }
 
-function goToStudentForm() {
-    showPage('page-student');
-}
+function goToStudentForm() { showPage('page-student'); }
 
 function submitPresence() {
     const nom = document.getElementById('s-nom').value.trim();
     const pre = document.getElementById('s-prenom').value.trim();
-    const groupeRadio = document.querySelector('input[name="groupe"]:checked');
+    const grp = document.querySelector('input[name="groupe"]:checked');
     const btn = document.getElementById('btn-submit');
 
-    if(!nom || !pre || !groupeRadio) {
-        return alert("يرجى إدخال جميع المعلومات !");
-    }
+    if(!nom || !pre || !grp) return alert("يرجى إدخال جميع المعلومات !");
 
-    // DISPARITION DU BOUTON
     btn.style.display = 'none';
+    const data = { n: nom, p: pre, g: grp.value, d: new Date().toLocaleDateString(), t: new Date().toLocaleTimeString() };
 
-    const data = {
-        n: nom,
-        p: pre,
-        g: groupeRadio.value,
-        d: new Date().toLocaleDateString('fr-FR'),
-        t: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})
-    };
-
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(data)
-    })
+    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
     .then(() => {
-        // Enregistrer le blocage dans le téléphone
-        const todayKey = new Date().toLocaleDateString('fr-FR');
-        localStorage.setItem('done_' + todayKey, 'true');
-        
+        localStorage.setItem('done_' + new Date().toLocaleDateString(), 'true');
         document.getElementById('success-msg').innerText = "شكراً لك " + pre + "، تم تسجيل حضورك.";
         showPage('page-success');
     })
-    .catch(error => {
-        alert("خطأ في الاتصال");
-        btn.style.display = 'block'; // Réapparaît si ça échoue
+    .catch(() => {
+        alert("خطأ");
+        btn.style.display = 'block';
     });
 }
 
 function checkAdmin() {
-    if(document.getElementById('admin-pwd').value === ADMIN_PASSWORD) {
-        alert("Accès autorisé au tableau Google Sheets");
+    if(document.getElementById('admin-pwd').value === 'prof2024') {
         showPage('page-landing');
+        alert("Accès autorisé");
     } else {
-        alert("كلمة المرور خاطئة!");
+        alert("خطأ");
     }
 }
 </script>
