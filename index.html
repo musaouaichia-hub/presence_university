@@ -131,7 +131,7 @@ function checkStatus() {
     .then(response => response.text())
     .then(status => {
         const cleanStatus = status.trim();
-        if (cleanStatus !== "OUVERT") {
+        if (cleanStatus !== "CLOSE") {
             // Si c'est fermé, on remplace le contenu par un message de verrouillage
             document.getElementById('page-student').innerHTML = `
                 <div class="card" style="text-align:center; padding:50px; background: var(--card);">
