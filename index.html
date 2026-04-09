@@ -134,12 +134,28 @@ const TOKEN = params.get("token");
 }
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxs_8Fn8RjIyq5YcTlXK0bpz8xvNQReoZ1b5yu1CDJwQ4f6rSmjS_fbpY2bauiq-p8n9A/exec"; 
 
-window.onload = function() {
+/* window.onload = function() {
     const today = new Date();
     document.getElementById('landing-date').innerText = "📅 " + today.toLocaleDateString('ar-DZ', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
     checkStatus();
-};
+}*/;
+window.onload = function() {
+    const today = new Date();
+    document.getElementById('landing-date').innerText =
+        "📅 " + today.toLocaleDateString('ar-DZ', {
+            weekday:'long',
+            day:'numeric',
+            month:'long',
+            year:'numeric'
+        });
 
+    if (!TOKEN) {
+        console.log("❌ No token");
+        return; // 🔥 stop ici
+    }
+
+    checkStatus();
+};
 /*function checkStatus() {
     fetch(SCRIPT_URL)
     .then(r => r.text())
