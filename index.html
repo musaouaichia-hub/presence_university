@@ -1,122 +1,69 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <title>نظام الحضور الجامعي</title>
-
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;900&display=swap');
-
-
 
         :root {
 
             --bg: #0a0e1a; --surface: #111827; --card: #1a2235; --border: #2a3548;
-
             --accent: #1d6fa4; --gold: #f0a500; --green: #10b981; --text: #f1f5f9; --text-muted: #64748b;
 
         }
 
-
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-
 
         body { 
 
             font-family: 'Tajawal', sans-serif; 
-
             background: linear-gradient(rgba(10, 14, 26, 0.75), rgba(10, 14, 26, 0.75)), url('usto.jpg'); 
-
             background-size: cover;
-
             background-position: center;
-
             background-attachment: fixed;
-
             color: var(--text); 
-
             max-width: 430px; 
-
             margin: 0 auto; 
-
             direction: rtl; 
-
             min-height: 100vh;
-
         }
 
-
-
         .page { display: none; min-height: 100vh; flex-direction: column; }
-
         .page.active { display: flex; }
 
-
-
         #page-landing { align-items: center; justify-content: center; padding: 40px 24px; text-align: center; }
-
-
 
         .landing-date-badge { 
 
             background: rgba(26, 34, 53, 0.8); 
-
             border: 1px solid var(--border); 
-
             border-radius: 30px; 
-
             padding: 8px 20px; 
-
             font-size: 14px; 
-
             color: var(--gold); 
-
             margin-bottom: 40px; 
-
             display: inline-block; 
 
         }
 
-
-
         .land-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; font-weight: 700; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; gap: 15px; justify-content: center; }
 
         .land-btn-student { background: linear-gradient(135deg, var(--gold), #d48f00); color: #0a0e1a; }
-
         .land-btn-admin { background: rgba(26, 34, 53, 0.9); color: var(--text); border: 1px solid var(--border); }
-
-
 
         .card { 
 
             background: rgba(26, 34, 53, 0.75); 
-
             backdrop-filter: blur(10px);       
-
             -webkit-backdrop-filter: blur(10px); 
-
             border: 1px solid rgba(255, 255, 255, 0.1); 
-
             border-radius: 16px; 
-
             padding: 20px; 
-
             margin: 15px; 
-
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-
         }
-
-
 
         input { width: 100%; padding: 14px; background: rgba(17, 24, 39, 0.8); border: 1.5px solid var(--border); border-radius: 12px; color: white; margin-bottom: 15px; text-align: right; outline: none; }
 
@@ -136,190 +83,100 @@
 
 <body>
 
-
-
 <div class="page active" id="page-landing">
 
     <div class="content-wrap">
-
         <h1>USTO-MB Oran</h1>
-
         <h3 style="opacity: 0.9;">Faculty of Physics</h3>
-
         <h3 style="opacity: 0.8;">Department of Basic Physics</h3>
-
         <h1 style="margin: 20px 0; color: var(--gold);">Computer Science Lab</h1>
-
         <div class="landing-date-badge" id="landing-date">📅 loading...</div>
-
         <div style="padding: 0 20px;">
-
             <button class="land-btn land-btn-student" onclick="goToStudentForm()">📱 Student Attendance</button>
-
             <button class="land-btn land-btn-admin" onclick="showPage('page-admin-login')">🔐 Teacher’s Area</button>
-
         </div>
-
     </div>
-
 </div>
 
 
 
 <div class="page" id="page-student">
-
     <div class="card" id="student-content">
-
         <h2 style="text-align:center; margin-bottom:20px;">Attendance Registration</h2>
-
         <label>اللقب (Name)</label>
-
         <input type="text" id="s-nom" placeholder="Ex: BENMOHAMMED">
-
         <label>الاسم (First name)</label>
-
         <input type="text" id="s-prenom" placeholder="Ex: Ahmed">
-
-        
-
         <p style="text-align:center; margin: 15px 0;">Choose your Groupe :</p>
 
         <div class="group-grid">
-
             <label class="group-item"><input type="radio" name="groupe" value="G53"> G53</label>
-
             <label class="group-item"><input type="radio" name="groupe" value="G57"> G57</label>
-
             <label class="group-item"><input type="radio" name="groupe" value="G71"> G71</label>
-
             <label class="group-item"><input type="radio" name="groupe" value="G75"> G75</label>
-
             <label class="group-item"><input type="radio" name="groupe" value="G79"> G79</label>
-
         </div>
 
         <button class="submit-btn" id="btn-submit" onclick="submitPresence()" style="margin-top:20px;">تأكيد الحضور ✅</button>
-
         <p onclick="showPage('page-landing')" style="text-align:center; margin-top:15px; font-size:12px; color:var(--text-muted); cursor:pointer;">← Back</p>
-
     </div>
-
 </div>
 
 
 
 <div class="page" id="page-success" style="text-align:center; justify-content:center;">
-
     <div style="font-size: 80px;">✅</div>
-
     <h2 style="color:var(--gold)">Success!</h2>
-
     <p id="success-msg" style="margin: 20px;"></p>
-
     <button class="submit-btn" style="width:200px; margin: 0 auto;" onclick="location.reload()">Close</button>
-
 </div>
-
-
-
 <div class="page" id="page-admin-login" style="justify-content:center;">
-
     <div class="card">
-
         <h2 style="text-align:center; margin-bottom:20px;">🔐 Teacher Login</h2>
-
         <input type="password" id="admin-pwd" placeholder="Password" style="text-align:center;">
-
         <button class="submit-btn" onclick="checkAdmin()">Login</button>
-
         <p onclick="showPage('page-landing')" style="text-align:center; margin-top:15px; font-size:13px; color:var(--text-muted); cursor:pointer;">Cancel</p>
-
     </div>
-
 </div>
-
-
 
 <script>
 
 const params = new URLSearchParams(window.location.search);
-
 const TOKEN = params.get("token");
-
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrWF_GXTWlPryp9y3NriW5xGbXyPo7YaQDbValiYiA8n4xxPxyP6oONHvB6mxNkOvafg/exec"; 
-
-
-
 window.onload = function() {
-
-    // 1. Afficher la date
-
-    const today = new Date();
-
-    document.getElementById('landing-date').innerText = "📅 " + today.toLocaleDateString('ar-DZ', {
-
-        weekday:'long', day:'numeric', month:'long', year:'numeric'
-
-    });
-
-
-
-    // 2. Vérifier le token immédiatement
-
-    if (!TOKEN) {
-
-        document.body.innerHTML = `
-
-            <div style="text-align:center; padding:50px; color:white; font-family:sans-serif;">
-
-                <h2>🔒 Accès interdit</h2>
-
-                <p>Veuillez scanner le QR code officiel du professeur.</p>
-
-            </div>`;
-
-        return; 
-
+    // 1. Affichage immédiat de la date
+    try {
+        const today = new Date();
+        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        // On force l'écriture dans l'élément landing-date
+        const dateElement = document.getElementById('landing-date');
+        if (dateElement) {
+            dateElement.innerText = "📅 " + today.toLocaleDateString('ar-DZ', options);
+        }
+    } catch (e) {
+        console.error("Erreur d'affichage de la date:", e);
+        document.getElementById('landing-date').innerText = "📅 " + new Date().toLocaleDateString();
     }
 
-    
-
-    // 3. Vérifier le statut via Google Sheets
-
+    // 2. Lancement de la vérification du statut
     checkStatus();
-
 };
-
-
-
 function checkStatus() {
 
     fetch(SCRIPT_URL + "?token=" + TOKEN)
-
     .then(r => r.text())
-
     .then(status => {
-
         if (status.trim().toUpperCase() === "VALID" || status.trim().toUpperCase() === "OPEN") {
-
             checkIfAlreadyDone();
-
         } else {
-
             document.getElementById('student-content').innerHTML = `
-
                 <div style="text-align:center; padding:30px;">
-
                     <div style="font-size:60px;">🔒</div>
-
                     <h2 style="color:var(--gold); margin:15px 0;">Access Denied</h2>
-
                     <p>${status}</p>
-
                     <button class="submit-btn" onclick="location.reload()" style="margin-top:20px; font-size:14px;">Actualiser ↻</button>
-
                 </div>`;
-
         }
 
     })
@@ -327,8 +184,6 @@ function checkStatus() {
     .catch(err => console.error("Erreur:", err));
 
 }
-
-
 
 function checkIfAlreadyDone() {
 
@@ -338,56 +193,32 @@ function checkIfAlreadyDone() {
 
 }
 
-
-
 function showPage(id) {
 
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-
     document.getElementById(id).classList.add('active');
 
 }
 
-
-
 function goToStudentForm() { showPage('page-student'); }
-
-
 
 function submitPresence() {
 
     const nom = document.getElementById('s-nom').value.trim();
-
     const pre = document.getElementById('s-prenom').value.trim();
-
     const grp = document.querySelector('input[name="groupe"]:checked');
-
     const btn = document.getElementById('btn-submit');
-
-
-
     if(!nom || !pre || !grp) return alert("يرجى إدخال جميع المعلومات !");
-
-
-
     btn.disabled = true;
-
     btn.innerText = "... جاري الإرسال | Loading";
-
-
 
     const data = { 
 
         n: nom, 
-
         p: pre, 
-
         g: grp.value, 
-
         d: new Date().toLocaleDateString(), 
-
         t: new Date().toLocaleTimeString(), 
-
         token: TOKEN 
 
     };
@@ -430,25 +261,16 @@ function submitPresence() {
     })
 
 
-
 function checkAdmin() {
-
     if(document.getElementById('admin-pwd').value === 'prof2024') {
-
         showPage('page-landing');
-
         alert("Accès autorisé");
-
     } else {
-
         alert("كلمة المرور خاطئة!");
-
     }
 
 }
 
 </script>
-
 </body>
-
 </html>
