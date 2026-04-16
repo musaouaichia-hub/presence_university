@@ -394,45 +394,40 @@ function submitPresence() {
 
 
 
-    fetch(SCRIPT_URL, { 
-
+   fetch(SCRIPT_URL, { 
         method: 'POST', 
-
         body: JSON.stringify(data)
-
     })
-
     .then(res => res.text())
-
     .then(response => {
+        const resp = response.trim();
 
-        if (response.trim() === "SUCCESS") {
-
+        if (resp === "SUCCESS") {
+            // Cas normal : Enregistrement réussi
+            const todayKey = 'done_' + new Date().toLocaleDateString();
+            localStorage.setItem(todayKey, 'true');
             document.getElementById('success-msg').innerText = "شكراً لك " + pre + "، تم تسجيل حضورك.";
-
             showPage('page-success');
-
-        } else {
-
-            alert("Réponse du serveur: " + response);
-
+        } 
+        else if (resp === "ALREADY_DONE") {
+            // Cas du doublon : Nom déjà dans Excel
+            alert("⚠️ تنبيه: هذا الاسم مسجل مسبقاً اليوم\n(Ce nom est déjà enregistré aujourd'hui)");
             btn.disabled = false;
-
             btn.innerText = "تأكيد الحضور ✅";
-
+        } 
+        else if (resp === "EXPIRED" || resp === "INVALID") {
+            // Cas du QR Code périmé
+            alert("❌ انتهت صلاحية الكود، يرجى مسح الكود الجديد\n(Le QR Code a expiré, scannez le nouveau)");
+            btn.disabled = false;
+            btn.innerText = "تأكيد الحضور ✅";
         }
-
+        else {
+            // Autres erreurs (LOCKED, ERROR, etc.)
+            alert("Réponse du serveur: " + resp);
+            btn.disabled = false;
+            btn.innerText = "تأكيد الحضور ✅";
+        }
     })
-
-    .catch(err => {
-
-        alert("Erreur de connexion");
-
-        btn.disabled = false;
-
-    });
-
-}
 
 
 
